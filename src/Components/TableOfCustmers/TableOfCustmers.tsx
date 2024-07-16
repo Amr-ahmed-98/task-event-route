@@ -14,6 +14,13 @@ interface TransactionType {
   date: string;
 }
 
+
+interface ApiResponse {
+  customers: CustomerType[];
+  transactions: TransactionType[];
+}
+
+
 const TableOfCustomers = () => {
   const [searchedName, setSearchedName] = useState<string>('');
   const [searchedAmount, setSearchedAmount] = useState<string>('');
@@ -21,23 +28,22 @@ const TableOfCustomers = () => {
   const { data: dataCustomers, isLoading: loadingCustomers } = useQuery({
     queryKey: ['customers'],
     queryFn: async () => {
-      const response = await axios.get<CustomerType[]>(
-        'http://localhost:3000/customers'
+      const response = await axios.get<ApiResponse>(
+        'https://raw.githubusercontent.com/Amr-ahmed-98/task-event-route/main/db.json'
       );
-      return response.data;
+      return response.data.customers;
     },
   });
-
+  
   const { data: dataTransactions, isLoading: loadingTransactions } = useQuery({
     queryKey: ['transactions'],
     queryFn: async () => {
-      const response = await axios.get<TransactionType[]>(
-        'http://localhost:3000/transactions'
+      const response = await axios.get<ApiResponse>(
+        'https://raw.githubusercontent.com/Amr-ahmed-98/task-event-route/main/db.json'
       );
-      return response.data;
+      return response.data.transactions;
     },
   });
-
   if (loadingCustomers || loadingTransactions) return <div>Loading...</div>;
   if (!dataCustomers || !dataTransactions) return <div>No data available</div>;
 

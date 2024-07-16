@@ -42,15 +42,15 @@ function Chart() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/transactions')
-      .then(({ data }) => setTransData(data))
+      .get('https://raw.githubusercontent.com/Amr-ahmed-98/task-event-route/main/db.json')
+      .then(({ data }) => setTransData(data.transactions))
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/customers')
-      .then(({ data }) => setCustomersData(data))
+      .get('https://raw.githubusercontent.com/Amr-ahmed-98/task-event-route/main/db.json')
+      .then(({ data }) => setCustomersData(data.customers))
       .catch((err) => console.log(err));
   }, []);
 
