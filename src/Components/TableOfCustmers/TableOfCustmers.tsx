@@ -9,7 +9,7 @@ interface CustomerType {
 
 interface TransactionType {
   id: string;
-  customer_id: number;
+  customer_id: string;
   amount: number;
   date: string;
 }
@@ -127,7 +127,7 @@ const TableOfCustomers = () => {
                 ? // Default view: no search
                   dataCustomers.map((customer) => {
                     const customerTransactions = dataTransactions.filter(
-                      (trans) => trans.customer_id === +customer.id
+                      (trans) => trans.customer_id === customer.id
                     );
                     return customerTransactions.map((transaction) => (
                       <tr
@@ -147,7 +147,7 @@ const TableOfCustomers = () => {
                 ? // Customer name search
                   filteredCustomers.map((customer) => {
                     const customerTransactions = dataTransactions.filter(
-                      (trans) => trans.customer_id === +customer.id
+                      (trans) => trans.customer_id === customer.id
                     );
                     return customerTransactions.map((transaction) => (
                       <tr
@@ -166,7 +166,7 @@ const TableOfCustomers = () => {
                 : // Transaction amount search
                   filteredTransactions.map((transaction) => {
                     const customer = dataCustomers.find(
-                      (cust) => cust.id === transaction.customer_id.toString()
+                      (cust) => cust.id === transaction.customer_id
                     );
                     return (
                       <tr
